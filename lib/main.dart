@@ -37,6 +37,17 @@ class quiz extends StatefulWidget {
 }
 
 class _quizState extends State<quiz> {
+
+  List<Icon> scorekeeper =[];
+
+  List<String> ques =[
+    'You can lead of cow down stairs but not up stairs',
+    'Approximately one quarter of human bones are in the feet ',
+    'A slug\'s blood is green'
+  ];
+
+  int ques_no =0;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -48,7 +59,7 @@ class _quizState extends State<quiz> {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Center(
-              child: Text('This is where the question text will go',
+              child: Text( ques[ques_no],
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 25.0,
@@ -71,7 +82,11 @@ class _quizState extends State<quiz> {
                   fontSize: 20.0,
                 ),
               ),
-              onPressed: (){},
+              onPressed: (){
+                  setState(() {
+                    ques_no++;
+                  });
+              },
             ),
           ),
         ),
@@ -88,10 +103,19 @@ class _quizState extends State<quiz> {
                   fontSize: 20.0,
                 ),
               ),
-              onPressed: (){},
+              onPressed: (){
+                setState(() {
+                  ques_no++;
+                });
+              },
             ),
           ),
         ),
+
+        Row(
+          children: scorekeeper,
+        )
+
       ],
     );
   }
