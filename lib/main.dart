@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:quizler_app/question.dart';
+import 'question.dart';
+import 'questions.dart';
+import '';
+
+Questions ob=new Questions();
 
 void main() => runApp(QuizlerApp());
 
@@ -40,14 +46,23 @@ class _quizState extends State<quiz> {
 
   List<Icon> scorekeeper =[];
 
-  List<String> ques =[
-    'You can lead of cow down stairs but not up stairs',
-    'Approximately one quarter of human bones are in the feet ',
-    'A slug\'s blood is green'
-  ];
-
-  int ques_no =0;
-
+  void checkAns(bool userPick){
+    setState(() {
+    if (userPick==ob.getQuestionAns())
+    {
+        scorekeeper.add(Icon(
+          Icons.check,
+          color: Colors.green,
+        ));
+      } else{
+      scorekeeper.add(Icon(
+        Icons.close,
+        color:Colors.red,
+      ));
+    }
+      ob.nextQues();
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -59,7 +74,7 @@ class _quizState extends State<quiz> {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Center(
-              child: Text( ques[ques_no],
+              child: Text( ob.getQuestionText(),
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 25.0,
@@ -82,11 +97,10 @@ class _quizState extends State<quiz> {
                   fontSize: 20.0,
                 ),
               ),
-              onPressed: (){
-                  setState(() {
-                    ques_no++;
-                  });
+              onPressed: () {
+                  checkAns(true);
               },
+
             ),
           ),
         ),
@@ -104,9 +118,8 @@ class _quizState extends State<quiz> {
                 ),
               ),
               onPressed: (){
-                setState(() {
-                  ques_no++;
-                });
+               checkAns(false);
+
               },
             ),
           ),
